@@ -34,22 +34,32 @@ const DogDetails = () => {
 
   return (
     <div className="dog-details">
-      <img src={dog.image} alt={dog.breed} className="dog-details-image" />
-      <div className="dog-details-info">
-        <div className="dog-details-header">
-          <h1>{dog.breed}</h1>
-          <span className="dog-details-price">${dog.price}</span>
+      <div className="dog-details-header">
+        <h1>{dog.breed}</h1>
+        <div className="dog-meta">
+          <span className="dog-price">${dog.price}</span>
+          <span className="dog-age">{dog.age} years old</span>
         </div>
-        <div className="dog-details-behavior">
-          Behavior: {dog.behavior}
+      </div>
+
+      <div className="dog-details-content">
+        <div className="dog-image-container">
+          <img src={dog.image} alt={dog.breed} className="dog-details-image" />
         </div>
-        <div className="dog-details-description">
-          <h3>Comments:</h3>
-          {dog.comments.map((comment, index) => (
-            <div key={index} className="comment">
-              <strong>{comment.user}:</strong> {comment.text}
+
+        <div className="dog-info-container">
+          <div className="info-section">
+            <h2>About</h2>
+            <p>{dog.description}</p>
+          </div>
+
+          <div className="info-section">
+            <h2>Characteristics</h2>
+            <div className="characteristics">
+              <span className="behavior-tag">{dog.behavior}</span>
+              <span className="age-tag">Adult • {dog.age} years</span>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </div>

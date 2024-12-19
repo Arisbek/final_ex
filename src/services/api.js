@@ -15,6 +15,7 @@ export const dogApi = {
 export const mockDogData = {
   getDogDetails: (id) => ({
     price: Math.floor(Math.random() * 2000) + 500,
+    age: 10, // Consistent age of 10 years
     behavior: ['Friendly', 'Active', 'Loyal'][Math.floor(Math.random() * 3)],
     comments: [
       { user: 'dog_lover', text: 'Such a cute puppy!' },

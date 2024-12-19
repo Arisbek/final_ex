@@ -1,13 +1,30 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
-// import './DogCard.css'
+import { useAuth } from '../context/AuthContext'
+import './DogCard.css'
 
-const DogCard = ({ id, image, breed, price, behavior, comments }) => {
-  const [isLiked, setIsLiked] = useState(false)
-  const [comment, setComment] = useState('')
+const DogCard = ({ 
+  id, 
+  image, 
+  breed, 
+  price, 
+  age,
+  behavior, 
+  description 
+}) => {
+  const { user, isFavorite, addToFavorites, removeFromFavorites } = useAuth()
+  const isLiked = isFavorite(id)
 
-  const handleLike = () => {
-    setIsLiked(!isLiked)
+  const handleFavoriteClick = () => {
+    if (!user) {
+      alert('Please login to add favorites!')
+      return
+    }
+
+    if (isLiked) {
+      removeFromFavorites(id)
+    } else {
+      addToFavorites({ id, image, breed, price, age, behavior, description })
+    }
   }
 
   return (
@@ -20,29 +37,29 @@ const DogCard = ({ id, image, breed, price, behavior, comments }) => {
         <img src={image} alt={breed} />
       </div>
 
+      <div className="card-info">
+        <div className="price-age">
+          <span className="price">${price}</span>
+          <span className="age">{age} years old</span>
+        </div>
+        <span className="behavior-tag">{behavior}</span>
+      </div>
+
+      <div className="card-description">
+        <p>{description?.slice(0, 100)}...</p>
+      </div>
+
       <div className="card-actions">
         <button 
-          onClick={handleLike}
-          className={`like-button ${isLiked ? 'liked' : ''}`}
+          onClick={handleFavoriteClick}
+          className={`favorite-button ${isLiked ? 'favorited' : ''}`}
+          title={user ? 'Add to favorites' : 'Login to add favorites'}
         >
           {isLiked ? '❤️' : '🤍'}
         </button>
-        <span className="price">${price}</span>
-      </div>
-
-      <div className="card-info">
-        <span className="behavior-tag">{behavior}</span>
-        <Link to={`/dog/${id}`} className="details-link">
+        <Link to={`/dog/${id}`} className="details-button">
           View Details
         </Link>
-      </div>
-
-      <div className="comments-section">
-        {comments.map((comment, index) => (
-          <div key={index} className="comment">
-            <strong>{comment.user}</strong> {comment.text}
-          </div>
-        ))}
       </div>
     </article>
   )

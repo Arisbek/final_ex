@@ -1,22 +1,20 @@
-import { useState, useEffect } from 'react'
-import DogCard from '../components/DogCard'
 import { useAuth } from '../context/AuthContext'
+import DogCard from '../components/DogCard'
 import './Favorites.css'
 
 const Favorites = () => {
-  const { user } = useAuth()
-  const [favorites, setFavorites] = useState([])
-
-  useEffect(() => {
-    // In a real app, you would fetch favorites from an API
-    setFavorites([])
-  }, [user])
+  const { favorites } = useAuth()
 
   if (favorites.length === 0) {
     return (
       <div className="favorites-empty">
         <h2>No favorites yet</h2>
         <p>Start adding some dogs to your favorites!</p>
+        <img 
+          src="/empty-favorites.png" 
+          alt="No favorites" 
+          className="empty-illustration"
+        />
       </div>
     )
   }
