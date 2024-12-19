@@ -1,0 +1,51 @@
+.favorites {
+  padding: 2rem;
+}
+
+.favorites h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.favorites-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.favorites-empty h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.favorites-empty p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.empty-illustration {
+  max-width: 200px;
+  opacity: 0.7;
+}
+
+.dogs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .favorites {
+    padding: 1rem;
+  }
+  
+  .dogs-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+}
