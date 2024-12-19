@@ -1,23 +1,32 @@
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import './Login.css'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const navigate = useNavigate()
   const { login } = useAuth()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    login(email, password)
-    navigate('/')
+    setError('')
+    
+    try {
+      await login(email, password)
+      navigate('/')
+    } catch (err) {
+      setError(err.message)
+    }
   }
 
   return (
     <div className="login-container">
       <h2>Login</h2>
+      {error && <div className="error-message">{error}</div>}
+      
       <form onSubmit={handleSubmit} className="login-form">
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -42,6 +51,10 @@ const Login = () => {
         <button type="submit" className="login-button">
           Login
         </button>
+        
+        <p className="register-link">
+          Don't have an account? <Link to="/register">Register here</Link>
+        </p>
       </form>
     </div>
   )

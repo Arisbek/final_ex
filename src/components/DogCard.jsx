@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import './DogCard.css'
+// import './DogCard.css'
 
 const DogCard = ({ id, image, breed, price, behavior, comments }) => {
   const [isLiked, setIsLiked] = useState(false)
